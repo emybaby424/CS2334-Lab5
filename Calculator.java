@@ -282,9 +282,10 @@ public class Calculator
         // method will catch those exceptions and respond accordingly.
     	String result = "";
     	String[] temp = input.split(" ");
+    	
     	try 
     	{
-			result = Integer.toString(execute(temp));
+    		result = Integer.toString(execute(temp));
 		} catch (NumberFormatException e)
     	{
 			// TODO Auto-generated catch block
@@ -295,7 +296,9 @@ public class Calculator
 			// TODO Auto-generated catch block
 			System.out.println("Calculator Exception, message is: Illegal Command");
 			e.printStackTrace();
+
 		}
+    	
     	return result;
     }
 }

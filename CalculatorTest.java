@@ -303,9 +303,10 @@ public class CalculatorTest {
      */
     public void parseAndExecuteTestValidQuit() throws AssertException
     {
-   
+    	
         String result = Calculator.parseAndExecute("quit");
-        Assert.assertEquals(Integer.MIN_VALUE, result);
+        Assert.assertEquals(Integer.toString(Integer.MIN_VALUE), result);
+    	
     	
     }
 
