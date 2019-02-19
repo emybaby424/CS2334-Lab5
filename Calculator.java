@@ -204,8 +204,7 @@ public class Calculator
     protected static int execute(String[] tokens) throws NumberFormatException, CalculatorException
     {
         // Condition on the number of tokens (number of strings in user input separated by spaces)
-    	int result = 0;
-        switch(tokens.length)
+    	 switch(tokens.length)
         {
             // TODO: complete this...
         case 0:
@@ -216,8 +215,8 @@ public class Calculator
     	{
     		if(tokens[0].equalsIgnoreCase("quit"))
     		{
-    			result = Integer.MIN_VALUE;
-    			break;
+    			return Integer.MIN_VALUE;
+    			
     		}
     		else
     		{
@@ -226,23 +225,25 @@ public class Calculator
     	}
     	case 2:
     	{
-    		result = calculateTwoTokens(tokens);
-    		break;
+    		return calculateTwoTokens(tokens);
+    		
+    		
     	}
     	case 3:
     	{
-    		result = calculateThreeTokens(tokens);
-    		break;
+    		return calculateThreeTokens(tokens);
+    		
     	}
     	case 4:
     	{
     		throw new CalculatorException("Illegal Token Length"); 
-    	}
-    }
-	return result;
-
-        
+    		}
+    	default:
+    		{
+    			throw new CalculatorException("Illegal Token Length");
         }
+       }
+    }
 
     
 
@@ -281,24 +282,78 @@ public class Calculator
         // Hint: you should try and call execute(). If execute encounters an error, it will throw an exception. This
         // method will catch those exceptions and respond accordingly.
     	String result = "";
+    	int num = 0;
     	String[] temp = input.split(" ");
     	
-    	try 
+    	switch(temp.length)
     	{
-    		result = Integer.toString(execute(temp));
-		} catch (NumberFormatException e)
+    	case 1:
     	{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("Calculator Exception, message is: Illegal Command");
-		} catch (CalculatorException e) 
+    		if(input.equals("quit"))
+    		{
+    			result = "quit";
+    		}
+    		break;
+    	}
+    	case 2:
     	{
-			// TODO Auto-generated catch block
-			System.out.println("Calculator Exception, message is: Illegal Command");
-			e.printStackTrace();
-
-		}
-    	
-    	return result;
+    		try
+    		{
+    			num = Calculator.execute(temp);
+    		}
+    		catch(NumberFormatException | CalculatorException e)
+    		{
+    			result = "Please try again";
+    		}
+    		
+    				
+    		if(num != Integer.MIN_VALUE)
+    		{
+    			result = String.format("The result is %d", num);
+    		}
+    		break;
+    		
+    	}
+    	case 3:
+    	{
+    		try 
+    		{
+    			Calculator.execute(temp);
+    			
+    		}
+    		catch(CalculatorException | ArithmeticException e)
+    		{
+    			result = "You divided by zero. Please try again.";
+    		}
+    		break;
+    	}
+    	case 4:
+    	{
+    		try 
+    		{
+    			Calculator.execute(temp);
+    			
+    		}
+    		catch(CalculatorException | NumberFormatException e)
+    		{
+    			result = "Input was not an integer. Please try again.";
+    		}
+    		break;
+    	}
+    	case 5:
+    	{
+    		try 
+    		{
+    			Calculator.execute(temp);
+    			
+    		}
+    		catch(CalculatorException e)
+    		{
+    			result = String.format("Calculator Exception, message is: %s", e.getMessage());
+    		}
+    	}
+    	}
+		return result;
+    
     }
 }
