@@ -115,16 +115,17 @@ public class Calculator
     	// TODO: complete this...
 
     		try
-    		{
-    			if(tokens[1].equals("/") && tokens[3].equals("0"))
-    			{
-    				a = x/y;
-    			}
-    		}
-    		catch(ArithmeticException m)
-    		{
-    			System.out.println("Attempted to divide by 0 . Please try again");
-    		}
+			{
+				if(tokens[1].equals("/") && tokens[2].equals("0"))
+				{
+					throw new ArithmeticException("");
+				}
+			}
+			catch(ArithmeticException e)
+			{
+				System.out.println("Attempted to divide by 0 . Please try again");
+			}
+    	
     		try
     		{
     			if(tokens[1].equals("+") || tokens[1].equals("-") || tokens[1].equals("/"))
@@ -154,13 +155,15 @@ public class Calculator
         			}
         			if(command == "/")
         			{
-        				a = x/y;
+        				a = x / y;
         			}
         			
     		}
         		catch(NumberFormatException e) {
         			System.out.println("Second input was not an integer.\n Please try again. ");
         		}
+
+    		
     		return a;
     		
     	}
@@ -205,32 +208,35 @@ public class Calculator
         switch(tokens.length)
         {
             // TODO: complete this...
-        case 1:
+        case 0:
     	{
-    		throw new CalculatorException("Illegal Command"); 
+    		throw new CalculatorException("Illegal Token Length"); 
     	}
-    	case 2:
+    	case 1:
     	{
     		if(tokens[0].equalsIgnoreCase("quit"))
     		{
     			result = Integer.MIN_VALUE;
+    			break;
     		}
     		else
     		{
     			throw new CalculatorException("Illegal Command"); 
     		}
     	}
-    	case 3:
+    	case 2:
     	{
     		result = calculateTwoTokens(tokens);
+    		break;
+    	}
+    	case 3:
+    	{
+    		result = calculateThreeTokens(tokens);
+    		break;
     	}
     	case 4:
     	{
-    		result = calculateThreeTokens(tokens);
-    	}
-    	case 5:
-    	{
-    		throw new CalculatorException("Illegal Command"); 
+    		throw new CalculatorException("Illegal Token Length"); 
     	}
     }
 	return result;
@@ -278,7 +284,7 @@ public class Calculator
     	String[] temp = input.split(" ");
     	try 
     	{
-			execute(temp);
+			result = Integer.toString(execute(temp));
 		} catch (NumberFormatException e)
     	{
 			// TODO Auto-generated catch block
