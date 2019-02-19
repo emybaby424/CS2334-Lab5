@@ -52,7 +52,7 @@ public class Calculator
 		catch(CalculatorException e)
 		{
 			System.out.println("First input was not negate or halve.\n Please try again."); 
-		}
+		} 
         
     		try
     		{
