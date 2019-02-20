@@ -57,11 +57,11 @@ public class Calculator
 		
 		try {
     			// TODO: complete this...
-    			if(command == "negate")
+    			if(command.equals("negate"))
     			{
     				  a = -a; 
     			}
-    			if(command == "halve")
+    			if(command.equals("halve"))
     			{
     				a = a/2;
     			}
@@ -144,26 +144,26 @@ public class Calculator
     			}
     		
     		try {
-        			
-        			if(command == "+")
-        			{
-        				a = x + y; 
-        			}
-        			if(command == "-")
-        			{
-        				a = x - y;
-        			}
-        			if(command == "/")
-        			{
-        				a = x / y;
-        			}
-        			
+
+    			if(command.equals("+"))
+    			{
+    				a = x + y; 
+    			}
+    			if(command.equals("-"))
+    			{
+    				a = x - y;
+    			}
+    			if(command.equals("/"))
+    			{
+    				a = x / y;
+    				
+    			}
     		}
         		catch(NumberFormatException e) {
         			throw new NumberFormatException("Second input was not an integer.\n Please try again. ");
         		}
-
     		
+
     		return a;
     		
     	}
@@ -289,7 +289,7 @@ public class Calculator
     			return "quit";
     		}
     		else {
-    			return String.format("The result is %d", execute(temp));
+    			return String.format("The result is: %d", execute(temp));
 				}
     		}
     		catch (NumberFormatException e) {
