@@ -36,8 +36,8 @@ public class Calculator
     {
         int a = Integer.parseInt(tokens[1]); // Throws NumberFormatException if the second token is not an int value.
         // TODO: complete this...
-        String command = tokens[0];
-     
+        String command = "";
+        
         try
 		{
 			if(tokens[0].equals("negate") || tokens[0].equals("halve"))
@@ -51,27 +51,27 @@ public class Calculator
 		}
 		catch(CalculatorException e)
 		{
-			System.out.println("First input was not negate or halve.\n Please try again."); 
-		} 
-        
-    		try
-    		{
+			throw new CalculatorException("Illegal Command");  
+		}	
+       
+		
+		try {
     			// TODO: complete this...
     			if(command == "negate")
     			{
-    				a = -a; 
+    				  a = -a; 
     			}
     			if(command == "halve")
     			{
     				a = a/2;
     			}
-    		}
-    		catch(NumberFormatException e)
-    		{
-    			System.out.println("Second input was not an integer.\n Please try again. ");
-    		}
+			}
+    			catch(NumberFormatException e) {
+    				throw new NumberFormatException("");
+    			}
+		return a;
 		
-    	return a;
+		
     }
        
 
@@ -123,7 +123,7 @@ public class Calculator
 			}
 			catch(ArithmeticException e)
 			{
-				System.out.println("Attempted to divide by 0 . Please try again");
+				throw new ArithmeticException("Attempted to divide by 0 . Please try again");
 			}
     	
     		try
@@ -140,7 +140,7 @@ public class Calculator
     			
     			catch(CalculatorException e)
     			{
-    				System.out.println("Second input was not + or - or /.\n Please try again.");
+    				throw new CalculatorException("Second input was not + or - or /.\n Please try again.");
     			}
     		
     		try {
@@ -160,7 +160,7 @@ public class Calculator
         			
     		}
         		catch(NumberFormatException e) {
-        			System.out.println("Second input was not an integer.\n Please try again. ");
+        			throw new NumberFormatException("Second input was not an integer.\n Please try again. ");
         		}
 
     		
@@ -293,6 +293,7 @@ public class Calculator
     		{
     			result = "quit";
     		}
+    		
     		break;
     	}
     	case 2:
@@ -300,19 +301,20 @@ public class Calculator
     		try
     		{
     			num = Calculator.execute(temp);
+    			
+    			if(num != Integer.MIN_VALUE)
+        		{
+        			result = String.format("The result is %d", num);
+        		}
     		}
     		catch(NumberFormatException | CalculatorException e)
     		{
-    			result = "Please try again";
+    			String.format("Calculator Exception, message is: %s", e.getMessage());
     		}
     		
-    				
-    		if(num != Integer.MIN_VALUE)
-    		{
-    			result = String.format("The result is %d", num);
-    		}
+    			
+    		
     		break;
-    		
     	}
     	case 3:
     	{
@@ -323,7 +325,7 @@ public class Calculator
     		}
     		catch(CalculatorException | ArithmeticException e)
     		{
-    			result = "You divided by zero. Please try again.";
+    			throw new ArithmeticException("You divided by zero. Please try again.");
     		}
     		break;
     	}
@@ -336,7 +338,7 @@ public class Calculator
     		}
     		catch(CalculatorException | NumberFormatException e)
     		{
-    			result = "Input was not an integer. Please try again.";
+    			throw new NumberFormatException("Input was not an integer. Please try again.");
     		}
     		break;
     	}
@@ -350,7 +352,9 @@ public class Calculator
     		catch(CalculatorException e)
     		{
     			result = String.format("Calculator Exception, message is: %s", e.getMessage());
+    			
     		}
+    		break;
     	}
     	}
 		return result;
