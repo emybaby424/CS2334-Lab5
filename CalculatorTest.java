@@ -315,8 +315,8 @@ public class CalculatorTest {
      */
     public void parseAndExecuteTestValidCommand() throws AssertException
     {
-        String result = Calculator.parseAndExecute("5 + 6");
-        Assert.assertEquals("The result is: 11", result);
+        String result = Calculator.parseAndExecute("5 - 2");
+        Assert.assertEquals("The result is: 3", result);
     }
 
     /**
@@ -326,7 +326,7 @@ public class CalculatorTest {
     {
         // TODO: complete this test...
     	 String result = Calculator.parseAndExecute("5 / 0");
-         Assert.assertEquals("Calculator Exception, message is: Illegal Command", result);
+         Assert.assertEquals("Attempted to divide by 0. Please try again.", result);
     }
 
     /**
@@ -336,7 +336,7 @@ public class CalculatorTest {
     {
         // TODO: complete this test...
     	  String result = Calculator.parseAndExecute("negate zoo");
-          Assert.assertEquals("Calculator Exception, message is: Illegal Command", result);
+          Assert.assertEquals("Input number cannot be parsed to an int. Please try again.", result);
     }
 
     /**

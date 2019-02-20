@@ -140,7 +140,7 @@ public class Calculator
     			
     			catch(CalculatorException e)
     			{
-    				throw new CalculatorException("Second input was not + or - or /.\n Please try again.");
+    				throw new CalculatorException("Illegal Command");
     			}
     		
     		try {
@@ -281,83 +281,31 @@ public class Calculator
         // TODO: complete this...
         // Hint: you should try and call execute(). If execute encounters an error, it will throw an exception. This
         // method will catch those exceptions and respond accordingly.
-    	String result = "";
-    	int num = 0;
     	String[] temp = input.split(" ");
     	
-    	switch(temp.length)
-    	{
-    	case 1:
-    	{
-    		if(input.equals("quit"))
+    	try {
+    		if(execute(temp) == Integer.MIN_VALUE)
     		{
-    			result = "quit";
+    			return "quit";
     		}
+    		else {
+    			return String.format("The result is %d", execute(temp));
+				}
+    		}
+    		catch (NumberFormatException e) {
+    	
+    			return "Input number cannot be parsed to an int. Please try again.";
+    		}
+   
+    		catch(ArithmeticException e) {
     		
-    		break;
-    	}
-    	case 2:
-    	{
-    		try
-    		{
-    			num = Calculator.execute(temp);
+    			return "Attempted to divide by 0. Please try again.";
+    		}
+    	
+    		catch(CalculatorException e) {
     			
-    			if(num != Integer.MIN_VALUE)
-        		{
-        			result = String.format("The result is %d", num);
-        		}
-    		}
-    		catch(NumberFormatException | CalculatorException e)
-    		{
-    			String.format("Calculator Exception, message is: %s", e.getMessage());
-    		}
+    		return String.format("Calculator Exception, message is: %s", e.getMessage());
+    			}
     		
-    			
-    		
-    		break;
     	}
-    	case 3:
-    	{
-    		try 
-    		{
-    			Calculator.execute(temp);
-    			
-    		}
-    		catch(CalculatorException | ArithmeticException e)
-    		{
-    			throw new ArithmeticException("You divided by zero. Please try again.");
-    		}
-    		break;
-    	}
-    	case 4:
-    	{
-    		try 
-    		{
-    			Calculator.execute(temp);
-    			
-    		}
-    		catch(CalculatorException | NumberFormatException e)
-    		{
-    			throw new NumberFormatException("Input was not an integer. Please try again.");
-    		}
-    		break;
-    	}
-    	case 5:
-    	{
-    		try 
-    		{
-    			Calculator.execute(temp);
-    			
-    		}
-    		catch(CalculatorException e)
-    		{
-    			result = String.format("Calculator Exception, message is: %s", e.getMessage());
-    			
-    		}
-    		break;
-    	}
-    	}
-		return result;
-    
-    }
 }
